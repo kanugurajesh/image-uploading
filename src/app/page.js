@@ -1,10 +1,9 @@
+"use client"
 import Image from 'next/image'
 import styles from './page.module.css'
-// import id creator
-import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react'
 
 export default function Home() {
-
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -23,7 +22,6 @@ export default function Home() {
 
     console.log(formData)
   }
-
 
   return (
     <div className={styles.container}>
