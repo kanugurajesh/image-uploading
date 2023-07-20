@@ -1,5 +1,7 @@
 const express = require('express');
 const next = require('next');
+var cloudinary = require('cloudinary').v2;
+const fs = require('fs');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -10,7 +12,10 @@ const port = parseInt(process.env.PORT, 10) || 3000;
 app.prepare().then(() => {
   const server = express();
 
-  server.get('*', (req, res) => {
+  server.use(express.json({ limit: '50mb' }));
+
+  server.get('/', (req, res) => {
+    console.log("hi")
     return handle(req, res);
   });
 

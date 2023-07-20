@@ -76,14 +76,6 @@ module.exports = require("next/dist/shared/lib/app-router-context");
 
 /***/ }),
 
-/***/ 1830:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("next/dist/shared/lib/get-img-props");
-
-/***/ }),
-
 /***/ 199:
 /***/ ((module) => {
 
@@ -92,35 +84,11 @@ module.exports = require("next/dist/shared/lib/hash");
 
 /***/ }),
 
-/***/ 6864:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("next/dist/shared/lib/head");
-
-/***/ }),
-
 /***/ 9569:
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("next/dist/shared/lib/hooks-client-context");
-
-/***/ }),
-
-/***/ 2210:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("next/dist/shared/lib/image-config");
-
-/***/ }),
-
-/***/ 5359:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("next/dist/shared/lib/image-config-context");
 
 /***/ }),
 
@@ -172,11 +140,27 @@ module.exports = require("next/dist/shared/lib/server-inserted-html");
 
 /***/ }),
 
-/***/ 8658:
+/***/ 4300:
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("next/dist/shared/lib/utils/warn-once");
+module.exports = require("buffer");
+
+/***/ }),
+
+/***/ 3685:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("http");
+
+/***/ }),
+
+/***/ 5687:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("https");
 
 /***/ }),
 
@@ -188,11 +172,43 @@ module.exports = require("path");
 
 /***/ }),
 
+/***/ 5477:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("punycode");
+
+/***/ }),
+
+/***/ 2781:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("stream");
+
+/***/ }),
+
+/***/ 1576:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("string_decoder");
+
+/***/ }),
+
 /***/ 7310:
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("url");
+
+/***/ }),
+
+/***/ 9796:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("zlib");
 
 /***/ }),
 
@@ -294,124 +310,135 @@ Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_
 /***/ 7778:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 4630))
+Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 8068))
 
 /***/ }),
 
-/***/ 4630:
+/***/ 8068:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Home)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6786);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var next_image__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8421);
-/* harmony import */ var next_image__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_image__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _page_module_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(395);
-/* harmony import */ var _page_module_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_page_module_css__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8038);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* __next_internal_client_entry_do_not_use__ default auto */ 
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  Spin: () => (/* binding */ Spin),
+  UploadIcon: () => (/* binding */ UploadIcon),
+  "default": () => (/* binding */ DropResume)
+});
+
+// EXTERNAL MODULE: external "next/dist/compiled/react/jsx-runtime"
+var jsx_runtime_ = __webpack_require__(6786);
+// EXTERNAL MODULE: external "next/dist/compiled/react"
+var react_ = __webpack_require__(8038);
+// EXTERNAL MODULE: ./node_modules/react-dropzone/dist/index.js
+var dist = __webpack_require__(5399);
+// EXTERNAL MODULE: ./node_modules/firebase/app/dist/index.mjs
+var app_dist = __webpack_require__(1288);
+// EXTERNAL MODULE: ./node_modules/firebase/analytics/dist/index.mjs + 4 modules
+var analytics_dist = __webpack_require__(9538);
+// EXTERNAL MODULE: ./node_modules/firebase/storage/dist/index.mjs + 1 modules
+var storage_dist = __webpack_require__(8120);
+;// CONCATENATED MODULE: ./src/app/firebase.js
+// Import the functions you need from the SDKs you need
 
 
 
-function Home() {
-    const [name, setName] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("");
-    const [email, setEmail] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("");
-    const [password, setPassword] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("");
-    const [checkbox, setCheckbox] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false);
-    const [image, setImage] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null);
-    const handleSubmit = (e)=>{
-        e.preventDefault();
-        const formData = {
-            name,
-            email,
-            password,
-            checkbox
-        };
-        console.log(formData);
-    };
-    return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-        className: (_page_module_css__WEBPACK_IMPORTED_MODULE_3___default().container),
+const firebaseConfig = {
+    apiKey: "AIzaSyD0HMCOc6Og28dnsfOqwuF_Ia1dTTYAj24",
+    authDomain: "reastapi.firebaseapp.com",
+    projectId: "reastapi",
+    storageBucket: "reastapi.appspot.com",
+    messagingSenderId: "577265070444",
+    appId: "1:577265070444:web:f9db53c965ff0e39c94349",
+    measurementId: "G-MH77MCH84F"
+};
+// Initialize Firebase
+const app = (0,app_dist/* initializeApp */.ZF)(firebaseConfig);
+const storage = (0,storage_dist/* getStorage */.cF)(app);
+
+;// CONCATENATED MODULE: ./src/app/page.js
+/* __next_internal_client_entry_do_not_use__ default,Spin,UploadIcon auto */ 
+
+
+
+
+function DropResume({ message }) {
+    const [spin, setSpin] = (0,react_.useState)(false);
+    const [downloadUrl, setDownloadUrl] = (0,react_.useState)("");
+    const onDrop = (0,react_.useCallback)((acceptedFiles)=>{
+        setSpin(true);
+        const file = acceptedFiles[0];
+        const mountainsRef = (0,storage_dist/* ref */.iH)(storage, "easyapply/" + file.name);
+        (0,storage_dist/* uploadBytesResumable */.B0)(mountainsRef, file).then((snapshot)=>{
+            (0,storage_dist/* getDownloadURL */.Jt)(snapshot.ref).then((downloadURL)=>{
+                setDownloadUrl(downloadURL);
+                setSpin(false);
+            });
+        });
+    }, []);
+    const { getRootProps, getInputProps } = (0,dist.useDropzone)({
+        onDrop
+    });
+    return /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+        ...getRootProps(),
+        className: "flex justify-center m-2 border-2 rounded-lg p-4 ",
         children: [
-            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h1", {
-                children: "Form"
+            /*#__PURE__*/ jsx_runtime_.jsx("input", {
+                ...getInputProps()
             }),
-            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
+            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
                 children: [
-                    /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", {
-                        children: [
-                            "Name:",
-                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("input", {
-                                type: "text",
-                                name: "name",
-                                onChange: (e)=>setName(e.target.value)
-                            })
-                        ]
+                    /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                        className: "",
+                        children: downloadUrl === "" ? /*#__PURE__*/ jsx_runtime_.jsx(UploadIcon, {}) : /*#__PURE__*/ jsx_runtime_.jsx(jsx_runtime_.Fragment, {})
                     }),
-                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("br", {}),
-                    /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", {
-                        children: [
-                            "Email:",
-                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("input", {
-                                type: "text",
-                                name: "email",
-                                onChange: (e)=>setEmail(e.target.value)
-                            })
-                        ]
+                    spin ? /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                        className: "flex justify-center",
+                        children: /*#__PURE__*/ jsx_runtime_.jsx(Spin, {})
+                    }) : /*#__PURE__*/ jsx_runtime_.jsx(jsx_runtime_.Fragment, {
+                        children: message
                     }),
-                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("br", {}),
-                    /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", {
-                        children: [
-                            "Password:",
-                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("input", {
-                                type: "text",
-                                name: "password",
-                                onChange: (e)=>setPassword(e.target.value)
-                            })
-                        ]
-                    }),
-                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("br", {}),
-                    /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", {
-                        children: [
-                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("input", {
-                                type: "checkbox",
-                                name: "checkbox",
-                                onChange: (e)=>setCheckbox(e.target.checked)
-                            }),
-                            "I agree to the terms and conditions"
-                        ]
-                    }),
-                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("br", {}),
-                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("input", {
-                        type: "submit",
-                        value: "Submit",
-                        onClick: (e)=>handleSubmit(e)
-                    }),
-                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("input", {
-                        type: "file",
-                        name: "image",
-                        onChange: (e)=>setImage(e.target.files[0])
+                    downloadUrl === "" ? /*#__PURE__*/ jsx_runtime_.jsx(jsx_runtime_.Fragment, {}) : /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                        className: "",
+                        children: /*#__PURE__*/ jsx_runtime_.jsx("iframe", {
+                            src: downloadUrl,
+                            frameBorder: "0",
+                            allowFullScreen: true,
+                            height: "500px",
+                            width: "100%"
+                        })
                     })
                 ]
             })
         ]
     });
 }
-
-
-/***/ }),
-
-/***/ 395:
-/***/ ((module) => {
-
-// Exports
-module.exports = {
-
-};
+const Spin = ()=>/*#__PURE__*/ jsx_runtime_.jsx("div", {
+        className: "animate-ping -ml-1 mr-3 h-5 w-5 text-indigo-500",
+        children: "..."
+    });
+const UploadIcon = ()=>/*#__PURE__*/ (0,jsx_runtime_.jsxs)("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "24",
+        height: "24",
+        viewBox: "0 0 24 24",
+        fill: "none",
+        stroke: "currentColor",
+        strokeWidth: "2",
+        strokeLinecap: "round",
+        strokeLinejoin: "round",
+        className: "h-4 w-4",
+        children: [
+            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                d: "M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"
+            }),
+            /*#__PURE__*/ jsx_runtime_.jsx("polyline", {
+                points: "13 2 13 9 20 9"
+            })
+        ]
+    });
 
 
 /***/ }),
@@ -458,6 +485,8 @@ function RootLayout({ children }) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   $$typeof: () => (/* binding */ $$typeof),
+/* harmony export */   Spin: () => (/* binding */ e0),
+/* harmony export */   UploadIcon: () => (/* binding */ e1),
 /* harmony export */   __esModule: () => (/* binding */ __esModule),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -474,6 +503,10 @@ const __default__ = proxy.default;
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__default__);
+const e0 = proxy["Spin"];
+
+const e1 = proxy["UploadIcon"];
+
 
 /***/ }),
 
@@ -515,7 +548,7 @@ __webpack_require__.r(__webpack_exports__);
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [669,305], () => (__webpack_exec__(1406)));
+var __webpack_exports__ = __webpack_require__.X(0, [669,63], () => (__webpack_exec__(1406)));
 module.exports = __webpack_exports__;
 
 })();

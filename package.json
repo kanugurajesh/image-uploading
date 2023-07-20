@@ -5,16 +5,24 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^1.4.0",
+    "encoding": "^0.1.13",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.10",
     "express": "^4.18.2",
+    "firebase": "^10.0.0",
+    "fs": "^0.0.1-security",
+    "imagekitio-react": "^2.0.0",
+    "multer": "^1.4.5-lts.1",
     "next": "^13.4.10",
+    "nodemon": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.3",
     "uuid": "^9.0.0"
   }
 }
