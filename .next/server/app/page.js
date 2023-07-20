@@ -148,6 +148,14 @@ module.exports = require("buffer");
 
 /***/ }),
 
+/***/ 6113:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("crypto");
+
+/***/ }),
+
 /***/ 3685:
 /***/ ((module) => {
 
@@ -323,19 +331,15 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  Spin: () => (/* binding */ Spin),
-  UploadIcon: () => (/* binding */ UploadIcon),
-  "default": () => (/* binding */ DropResume)
+  "default": () => (/* binding */ page)
 });
 
 // EXTERNAL MODULE: external "next/dist/compiled/react/jsx-runtime"
 var jsx_runtime_ = __webpack_require__(6786);
 // EXTERNAL MODULE: external "next/dist/compiled/react"
 var react_ = __webpack_require__(8038);
-// EXTERNAL MODULE: ./node_modules/react-dropzone/dist/index.js
-var dist = __webpack_require__(5399);
 // EXTERNAL MODULE: ./node_modules/firebase/app/dist/index.mjs
-var app_dist = __webpack_require__(1288);
+var dist = __webpack_require__(1288);
 // EXTERNAL MODULE: ./node_modules/firebase/analytics/dist/index.mjs + 4 modules
 var analytics_dist = __webpack_require__(9538);
 // EXTERNAL MODULE: ./node_modules/firebase/storage/dist/index.mjs + 1 modules
@@ -355,90 +359,115 @@ const firebaseConfig = {
     measurementId: "G-MH77MCH84F"
 };
 // Initialize Firebase
-const app = (0,app_dist/* initializeApp */.ZF)(firebaseConfig);
+const app = (0,dist/* initializeApp */.ZF)(firebaseConfig);
 const storage = (0,storage_dist/* getStorage */.cF)(app);
 
+// EXTERNAL MODULE: ./node_modules/uuid/dist/esm-node/v4.js + 3 modules
+var v4 = __webpack_require__(5269);
 ;// CONCATENATED MODULE: ./src/app/page.js
-/* __next_internal_client_entry_do_not_use__ default,Spin,UploadIcon auto */ 
+/* __next_internal_client_entry_do_not_use__ default auto */ 
 
 
 
 
-function DropResume({ message }) {
-    const [spin, setSpin] = (0,react_.useState)(false);
-    const [downloadUrl, setDownloadUrl] = (0,react_.useState)("");
-    const onDrop = (0,react_.useCallback)((acceptedFiles)=>{
-        setSpin(true);
-        const file = acceptedFiles[0];
-        const mountainsRef = (0,storage_dist/* ref */.iH)(storage, "easyapply/" + file.name);
-        (0,storage_dist/* uploadBytesResumable */.B0)(mountainsRef, file).then((snapshot)=>{
-            (0,storage_dist/* getDownloadURL */.Jt)(snapshot.ref).then((downloadURL)=>{
-                setDownloadUrl(downloadURL);
-                setSpin(false);
+function App() {
+    const [imgUrl, setImgUrl] = (0,react_.useState)(null);
+    const [progresspercent, setProgresspercent] = (0,react_.useState)(0);
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        // generate a unique id for each file
+        const id = (0,v4/* default */.Z)();
+        const file = e.target[3]?.files[0]; // Uncomments and add index 3 to access the file input element
+        if (!file) return;
+        const storageRef = (0,storage_dist/* ref */.iH)(storage, `files/${id}`);
+        const uploadTask = (0,storage_dist/* uploadBytesResumable */.B0)(storageRef, file, {
+            customMetadata: {
+                id: id
+            }
+        });
+        const formData = {
+            fileName: id,
+            name: e.target[0].value,
+            email: e.target[1].value,
+            password: e.target[2].value
+        };
+        uploadTask.on("state_changed", (snapshot)=>{
+            const progress = Math.round(snapshot.bytesTransferred / snapshot.totalBytes * 100);
+            setProgresspercent(progress);
+        }, (error)=>{
+            alert(error);
+        }, ()=>{
+            (0,storage_dist/* getDownloadURL */.Jt)(uploadTask.snapshot.ref).then((downloadURL)=>{
+                setImgUrl(downloadURL);
             });
         });
-    }, []);
-    const { getRootProps, getInputProps } = (0,dist.useDropzone)({
-        onDrop
-    });
+    };
     return /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
-        ...getRootProps(),
-        className: "flex justify-center m-2 border-2 rounded-lg p-4 ",
+        className: "App",
         children: [
-            /*#__PURE__*/ jsx_runtime_.jsx("input", {
-                ...getInputProps()
-            }),
-            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("form", {
+                onSubmit: handleSubmit,
+                className: "form",
                 children: [
-                    /*#__PURE__*/ jsx_runtime_.jsx("div", {
-                        className: "",
-                        children: downloadUrl === "" ? /*#__PURE__*/ jsx_runtime_.jsx(UploadIcon, {}) : /*#__PURE__*/ jsx_runtime_.jsx(jsx_runtime_.Fragment, {})
+                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("label", {
+                        children: [
+                            "Name:",
+                            /*#__PURE__*/ jsx_runtime_.jsx("input", {
+                                type: "text",
+                                required: true
+                            })
+                        ]
                     }),
-                    spin ? /*#__PURE__*/ jsx_runtime_.jsx("div", {
-                        className: "flex justify-center",
-                        children: /*#__PURE__*/ jsx_runtime_.jsx(Spin, {})
-                    }) : /*#__PURE__*/ jsx_runtime_.jsx(jsx_runtime_.Fragment, {
-                        children: message
+                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("label", {
+                        children: [
+                            "Email:",
+                            /*#__PURE__*/ jsx_runtime_.jsx("input", {
+                                type: "email",
+                                required: true
+                            })
+                        ]
                     }),
-                    downloadUrl === "" ? /*#__PURE__*/ jsx_runtime_.jsx(jsx_runtime_.Fragment, {}) : /*#__PURE__*/ jsx_runtime_.jsx("div", {
-                        className: "",
-                        children: /*#__PURE__*/ jsx_runtime_.jsx("iframe", {
-                            src: downloadUrl,
-                            frameBorder: "0",
-                            allowFullScreen: true,
-                            height: "500px",
-                            width: "100%"
-                        })
+                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("label", {
+                        children: [
+                            "Password:",
+                            /*#__PURE__*/ jsx_runtime_.jsx("input", {
+                                type: "password",
+                                required: true
+                            })
+                        ]
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("input", {
+                        type: "file",
+                        required: true
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                        type: "submit",
+                        children: "Upload"
                     })
                 ]
+            }),
+            !imgUrl && /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                className: "outerbar",
+                children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "innerbar",
+                    style: {
+                        width: `${progresspercent}%`
+                    },
+                    children: [
+                        progresspercent,
+                        "%"
+                    ]
+                })
+            }),
+            imgUrl && /*#__PURE__*/ jsx_runtime_.jsx("img", {
+                src: imgUrl,
+                alt: "uploaded file",
+                height: 200
             })
         ]
     });
 }
-const Spin = ()=>/*#__PURE__*/ jsx_runtime_.jsx("div", {
-        className: "animate-ping -ml-1 mr-3 h-5 w-5 text-indigo-500",
-        children: "..."
-    });
-const UploadIcon = ()=>/*#__PURE__*/ (0,jsx_runtime_.jsxs)("svg", {
-        xmlns: "http://www.w3.org/2000/svg",
-        width: "24",
-        height: "24",
-        viewBox: "0 0 24 24",
-        fill: "none",
-        stroke: "currentColor",
-        strokeWidth: "2",
-        strokeLinecap: "round",
-        strokeLinejoin: "round",
-        className: "h-4 w-4",
-        children: [
-            /*#__PURE__*/ jsx_runtime_.jsx("path", {
-                d: "M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"
-            }),
-            /*#__PURE__*/ jsx_runtime_.jsx("polyline", {
-                points: "13 2 13 9 20 9"
-            })
-        ]
-    });
+/* harmony default export */ const page = (App);
 
 
 /***/ }),
@@ -485,8 +514,6 @@ function RootLayout({ children }) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   $$typeof: () => (/* binding */ $$typeof),
-/* harmony export */   Spin: () => (/* binding */ e0),
-/* harmony export */   UploadIcon: () => (/* binding */ e1),
 /* harmony export */   __esModule: () => (/* binding */ __esModule),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -503,10 +530,6 @@ const __default__ = proxy.default;
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__default__);
-const e0 = proxy["Spin"];
-
-const e1 = proxy["UploadIcon"];
-
 
 /***/ }),
 
@@ -548,7 +571,7 @@ __webpack_require__.r(__webpack_exports__);
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [669,63], () => (__webpack_exec__(1406)));
+var __webpack_exports__ = __webpack_require__.X(0, [669,286], () => (__webpack_exec__(1406)));
 module.exports = __webpack_exports__;
 
 })();

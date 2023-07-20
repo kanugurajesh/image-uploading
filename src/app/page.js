@@ -1,44 +1,74 @@
 "use client"
-import { useCallback, useState } from 'react'
-import { useDropzone } from 'react-dropzone'
-import { storage } from './firebase.js'
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
+import { useState } from "react";
+import { storage } from './firebase';
+import { v4 as uuidv4 } from 'uuid';
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
-export default function DropResume({ message }) {
+function App() {
+  const [imgUrl, setImgUrl] = useState(null);
+  const [progresspercent, setProgresspercent] = useState(0);
 
-  const [spin, setSpin] = useState(false)
-  const [downloadUrl, setDownloadUrl] = useState('')
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // generate a unique id for each file
+    const id = uuidv4();
+    const file = e.target[3]?.files[0]; // Uncomments and add index 3 to access the file input element
+    if (!file) return;
 
-  const onDrop = useCallback(acceptedFiles => {
-    setSpin(true)
-    const file = acceptedFiles[0]
-    const mountainsRef = ref(storage, 'easyapply/' + file.name);
+    const storageRef = ref(storage, `files/${id}`);
+    const uploadTask = uploadBytesResumable(storageRef, file, { customMetadata: { id: id } });
 
-    uploadBytesResumable(mountainsRef, file).then((snapshot) => {
+    const formData = {
+      fileName: id,
+      name: e.target[0].value,
+      email: e.target[1].value,
+      password: e.target[2].value,
+    }
 
-      getDownloadURL(snapshot.ref).then(downloadURL => {
-        setDownloadUrl(downloadURL)
-        setSpin(false)
-      })
-    });
-
-  }, [])
-  const { getRootProps, getInputProps } = useDropzone({ onDrop })
+    uploadTask.on("state_changed",
+      (snapshot) => {
+        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        setProgresspercent(progress);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setImgUrl(downloadURL);
+        });
+      }
+    );
+  }
 
   return (
-    <div {...getRootProps()} className='flex justify-center m-2 border-2 rounded-lg p-4 '>
-      <input {...getInputProps()} />
-      <div>
-        <div className=''>
-          {downloadUrl === '' ? <UploadIcon /> : <></>}
+    <div className="App">
+      <form onSubmit={handleSubmit} className='form'>
+        <label>
+          Name:
+          <input type='text' required />
+        </label>
+        <label>
+          Email:
+          <input type='email' required />
+        </label>
+        <label>
+          Password:
+          <input type='password' required />
+        </label>
+        <input type='file' required />
+        <button type='submit'>Upload</button>
+      </form>
+      {!imgUrl && (
+        <div className='outerbar'>
+          <div className='innerbar' style={{ width: `${progresspercent}%` }}>
+            {progresspercent}%
+          </div>
         </div>
-        {spin ? <div className='flex justify-center'><Spin /></div> : <>{message}</>}
-        {downloadUrl === '' ? <></> :
-          <div className=''><iframe src={downloadUrl} frameBorder="0" allowFullScreen height={'500px'} width={'100%'}></iframe></div>}
-      </div>
+      )}
+      {imgUrl && <img src={imgUrl} alt='uploaded file' height={200} />}
     </div>
-  )
+  );
 }
 
-export const Spin = () => (<div className='animate-ping -ml-1 mr-3 h-5 w-5 text-indigo-500'>...</div>)
-export const  UploadIcon = () => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>)
+export default App;
